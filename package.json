@@ -1,0 +1,4 @@
+{ "name": "cadd-centre-gurugram", "private": true, "type": "module",
+  "_comment": "No 'build' script on purpose: the site is pre-built and committed, and Vercel auto-runs any script named 'build'. Regenerate locally with 'npm run build:site' (needs Python + Pillow), then commit the result.",
+  "scripts": { "dev": "node serve.js", "start": "node serve.js", "build:site": "cd src && python build.py" },
+  "dependencies": { "@neondatabase/serverless": "^0.10.4", "@vercel/blob": "^0.27.0" } }

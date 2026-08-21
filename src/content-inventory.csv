@@ -1,0 +1,60 @@
+url,page_title,content_type,unique_content,in_our_build,disposition,priority,notes
+/,Home,Home,Yes,YES (rewritten),Rewrite,P1,"Sections covered. NOT covered: Events & Contests block, YouTube testimonial embed, Feedback From Students widget, NSDC mention"
+/first-job-pakka/,First Job Pakka,Campaign/Programme,Yes,NO,MIGRATE + REPOSITION,P1,"MISSED ENTIRELY. H1 'First Job Pakka In Just 80 Hours'. 3 pillars: Core Competence / Hands-on / Programming Skills For Engineers. Enquiry form. YouTube ziUul8Luj9A. 'student-placed' banner image. Linked from sitewide header ribbon"
+/about-us/,About Us,Content,Partial,PARTIAL,Rewrite,P1,"Live copy largely duplicates homepage institutional text. NSDC collaboration claim appears here and is NOT in our build"
+/our-courses/,Our Courses,Index,Yes,YES (as /programs/),Rewrite,P1,Index replaced by filterable Programs index
+/contact/,Contact,Contact,Yes,YES,Rewrite,P1,Built
+/blog/,Blog index,Index,Yes,NO,BUILD,P1,"Insights index specified in Doc 1 but NOT built. Only 2 live articles found"
+/blog/autocad-basic-drawing-a-complete-guide/,AutoCAD Basic Drawing guide,Article,Yes,NO,MIGRATE,P1,Live indexed article — must be migrated or 301'd
+/blog/master-autocad-2d-mechanical-drawing/,Master AutoCAD 2D Mechanical Drawing,Article,Yes,NO,MIGRATE,P1,Live indexed article — must be migrated or 301'd
+/privacy-policy/,Privacy Policy,Legal,Yes,NO,BUILD,P1,"BROKEN LINK in our footer — file does not exist in dist/"
+/terms-conditions/,Terms & Conditions,Legal,Yes,NO,BUILD,P1,"BROKEN LINK in our footer — file does not exist in dist/"
+/disclaimer-page/,Disclaimer,Legal,Yes,NO,BUILD,P1,"BROKEN LINK in our footer — file does not exist in dist/"
+/bim/,BIM (hub),Course hub,Yes,NO,MAP TO CAREER PATH,P1,Homepage 'Our Best Courses' links here. Maps to /career-paths/bim-digital-construction/
+/revit-architecture-structure-mep-training-certification-course/,Revit (Arch/Struct/MEP) combined,Course,Yes,NO,MAP,P1,Homepage featured. Long legacy URL — needs explicit 301
+/courses/revit-architecture/,Revit Architecture,Course,Yes,YES,Rewrite,P1,BUILT. Duplicate also at /revit-architecture/
+/courses/revit-structure/,Revit Structure,Course,Yes,YES (listed only),Rewrite,P1,In programmes index; full page not built
+/courses/revit-mep/,Revit MEP,Course,Yes,YES (listed only),Rewrite,P1,In programmes index; full page not built
+/courses/civil-3d/,Civil 3D,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/staad-pro/,STAAD Pro,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/etabs-csi/,ETABS (CSI),Course,Yes,YES (listed only),Rewrite,P1,
+/courses/solid-works/,SolidWorks,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/catia/,CATIA,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/creo/,Creo Parametric,Course,Yes,YES (listed only),Rewrite,P1,"Live page has encoding fault: Creo's renders as Creoa€™s"
+/courses/nx-cad/,NX CAD,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/primavera-with-ppm/,Primavera with PPM,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/microsoft-office-with-ppm/,MS Office with PPM,Course,Yes,YES (listed only),Rewrite,P1,
+/courses/3d-printing/,3D Printing,Course,Yes,YES (listed only),Rewrite,P1,
+/autocad/autocad-electrical/,AutoCAD Electrical,Course,Yes,YES (listed only),Rewrite,P1,Third URL pattern — /autocad/ prefix
+/autocad/autocad-civil/,AutoCAD Civil,Course,Yes,NO,BUILD,P1,MISSING FROM BUILD
+/autocad/autocad-2d-3d-mechanical/,AutoCAD 2D & 3D Mechanical,Course,Yes,NO,BUILD,P1,MISSING FROM BUILD
+/autocad/autocad-3d/,AutoCAD 3D,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/3ds-max-course-for-engineers/,3ds Max for Engineers,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/5d-bim/,5D BIM,Course,Yes,NO,BUILD,P1,MISSING FROM BUILD
+/5d-bim-using-navisworks/,5D BIM using Navisworks,Course,Yes,NO,BUILD,P1,MISSING FROM BUILD. Homepage-only link
+/courses/sketchup/,SketchUp,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/v-ray/,V-Ray,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/lumion/,Lumion,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/ansys/,Ansys,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/ansys-workbench/,Ansys Workbench,Course,Yes,YES (listed only),Rewrite,P2,Homepage-only link
+/courses/ansys-fluent/,Ansys Fluent,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/nx-nastran/,NX Nastran,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/autodesk-inventor/,Autodesk Inventor,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/gdt-course/,GD&T,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/pc-schematic/,PC Schematic,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+/courses/automation-cad/,Automation CAD,Course,Yes,NO,BUILD,P2,MISSING FROM BUILD
+N/A,CADD Quest 2026,Event,Yes,NO,BUILD,P1,"Homepage 'Events & Contests' banner. Named competition — real Life@CADD content we have not captured"
+N/A,Student testimonial video,Media,Yes,NO,MIGRATE,P1,"YouTube FbJY_AvsFIk embedded on homepage under 'Hear from our students'"
+N/A,Feedback From Students,Widget,Yes,NO,BUILD,P2,Homepage section — appears to be a review/testimonial widget
+N/A,NSDC collaboration,Claim,Yes,NO,VERIFY THEN BUILD,P1,"Stated in About copy. Not in our build. Needs verification of current status and permitted wording"
+N/A,Enquiry popup (course category),Component,Yes,NO,BUILD,P1,"Elementor popup id 782 — sitewide enquiry modal with Select Course Category dropdown"
+N/A,Social profiles,Component,Yes,NO,BUILD,P2,"Facebook / Instagram / LinkedIn links sitewide. Our footer omits them"
+N/A,Opening hours discrepancy,Data,Yes,CONFLICT,RESOLVE,P1,"Live site header says 9:30 am - 7:00 pm. Google Business Profile says 9:00 am. Build now uses 9:30 am consistently (120 instances, 0 conflicts). CLIENT MUST RECONCILE at source — NAP inconsistency suppresses local ranking"
+/thank-you/,Thank You,Utility,Yes,NO,REDIRECT,P1,Legacy form thank-you page. MISSED in v1.1 inventory. Now 301s to /contact/ — replaced by the in-page reward screen
+N/A,Certification levels (Proficient/Masters/Expert),Product structure,Yes,NO,BUILD,P1,"CADD Centre's ACTUAL three-level certification ladder, on every live course page. v1.1 invented its own tiers and missed this. Now on all 32 programme pages"
+N/A,'Ideal For' eligibility block,Course section,Yes,NO,BUILD,P1,Present on every live course page. Now added per career path
+N/A,WhatsApp number,Data,Yes,WRONG,FIXED,P1,Live site WhatsApp is +91 8448312600 via wa.link/6u8w51 — the SECOND number. v1.1 wired WhatsApp to the primary number. Corrected in 173 links
+N/A,BIM Festival / AI sessions / CADD Quest 2025,Events,Yes,NO,BUILD,P2,Real event names from the About page Events gallery. v1.1 had only a generic CADD Quest 2026
+N/A,'More About Us' broken link,Defect (theirs),No,N/A,REPORT,P3,On the live /about-us/ page the More About Us button links to '#'. Pre-existing client-side defect
+N/A,Third opening-hours variant,Data,Yes,RESOLVED,CLIENT,P1,"A third variant '9.30 to 6.30' appears in an older footer template. Site now has 9:30-19:00 header, 9.30-18:30 legacy footer, 9:00 on Google. CLIENT MUST RECONCILE"
+N/A,Legacy footer 'Powered By MBG card Pvt.',Template drift,No,N/A,NOTE,P3,"Older pages (/bim/, revit combined) carry a different footer and copyright from a previous build. Evidence of two page templates in production"

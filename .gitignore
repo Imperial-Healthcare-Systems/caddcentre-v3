@@ -1,0 +1,28 @@
+# Dependencies — never commit these. A committed pnpm node_modules bakes
+# absolute Windows paths into node_modules/.modules.yaml, which makes
+# `pnpm install` fail on Vercel's Linux builder and kills the deploy.
+node_modules/
+.pnpm-store/
+
+# Host / tooling state
+.vercel/
+.netlify/
+
+# Secrets. api/_lib.js needs DATABASE_URL and SESSION_SECRET; api/upload.js
+# needs the blob token. Set them in the Vercel dashboard, not in the repo.
+.env
+.env.*
+!.env.example
+
+# Local dev database written by serve.js
+data/local-db.json
+
+# Python build toolchain (src/build.py)
+__pycache__/
+*.py[cod]
+.venv/
+
+# OS / editor noise
+.DS_Store
+Thumbs.db
+*.log

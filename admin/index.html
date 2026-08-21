@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin — CADD Centre Gurugram</title>
+<link rel="stylesheet" href="/assets/css/main.css">
+<style>
+  .adm{max-width:1320px;margin-inline:auto;padding:var(--s-3) var(--margin)}
+  .adm__bar{display:flex;justify-content:space-between;align-items:center;gap:var(--s-2);
+            border-bottom:1px solid var(--c-border);padding-block:var(--s-2);flex-wrap:wrap}
+  .tabs{display:flex;gap:2px}
+  .tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:10px 14px;
+               font-weight:600;font-size:.875rem;cursor:pointer}
+  .tabs button[aria-selected=true]{color:var(--c-accent);border-bottom-color:var(--c-accent)}
+  .toolbar{display:flex;gap:var(--s-1);flex-wrap:wrap;align-items:center;padding-block:var(--s-2)}
+  .toolbar input,.toolbar select{min-height:40px;padding:8px 10px;border:1px solid var(--c-border);font:inherit}
+  .adm table{width:100%;border-collapse:collapse;font-size:.8125rem}
+  .adm th,.adm td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--c-border);vertical-align:top}
+  .adm th{font-family:var(--f-mono);font-size:.6875rem;text-transform:uppercase;letter-spacing:.06em;color:var(--c-ink-muted)}
+  .pill{font-family:var(--f-mono);font-size:.625rem;text-transform:uppercase;letter-spacing:.08em;
+        padding:3px 7px;border:1px solid var(--c-border);background:var(--c-bg-warm)}
+  .st-new{border-color:var(--c-accent);color:var(--c-accent)}
+  .st-enrolled{border-color:var(--c-success);color:var(--c-success)}
+  .editor{display:grid;grid-template-columns:1fr 320px;gap:var(--s-3)}
+  @media(max-width:900px){.editor{grid-template-columns:1fr}}
+  .editor textarea{min-height:420px;font-family:var(--f-mono);font-size:.8125rem}
+  .login{max-width:380px;margin:12vh auto}
+  .msg{padding:10px 12px;font-size:.875rem;margin-bottom:var(--s-2)}
+  .msg--err{background:#FDECEC;color:var(--c-error)}
+  .msg--ok{background:#E8F5EE;color:var(--c-success)}
+  .hide{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- LOGIN ------------------------------------------------------------- -->
+<section id="login" class="login">
+  <p class="label label--accent">CADD Centre Gurugram</p>
+  <h1 class="t-h2 mt-2 mb-3">Admin</h1>
+  <div id="loginMsg" class="msg msg--err hide"></div>
+  <div class="field">
+    <label for="pw">Password</label>
+    <input id="pw" type="password" autocomplete="current-password">
+  </div>
+  <button class="btn btn--primary btn--wide" id="loginBtn" type="button">Sign in</button>
+  <p class="t-small t-muted mt-3">Sessions last 8 hours. Password is set server-side via the
+    <code>ADMIN_PASSWORD</code> environment variable.</p>
+</section>
+
+<!-- APP --------------------------------------------------------------- -->
+<div id="app" class="hide">
+  <div class="adm">
+    <div class="adm__bar">
+      <div class="tabs" role="tablist">
+        <button role="tab" aria-selected="true"  data-tab="leads">Leads</button>
+        <button role="tab" aria-selected="false" data-tab="posts">Articles</button>
+        <button role="tab" aria-selected="false" data-tab="syllabus">Syllabi</button>
+        <button role="tab" aria-selected="false" data-tab="videos">Videos</button>
+      </div>
+      <div class="flex gap-2 aic">
+        <span class="label" id="stat"></span>
+        <button class="btn btn--ghost" id="logout" type="button">Sign out</button>
+      </div>
+    </div>
+
+    <!-- LEADS -->
+    <section data-panel="leads">
+      <div class="toolbar">
+        <input id="q" type="search" placeholder="Search name, phone, email, course">
+        <select id="fSource">
+          <option value="">All sources</option>
+          <option value="enquiry_modal">Enquiry modal</option>
+          <option value="contact_form">Contact form</option>
+          <option value="career_finder">Career path finder</option>
+          <option value="first_job_pakka">First Job Pakka</option>
+          <option value="corporate">Corporate</option>
+        </select>
+        <select id="fStatus">
+          <option value="">All statuses</option>
+          <option>new</option><option>contacted</option><option>booked</option>
+          <option>enrolled</option><option>lost</option>
+        </select>
+        <input id="fFrom" type="date"><input id="fTo" type="date">
+        <button class="btn btn--ghost" id="refresh" type="button">Refresh</button>
+        <button class="btn btn--secondary" id="csv" type="button">Export CSV</button>
+      </div>
+      <table><thead><tr>
+        <th>When</th><th>Name</th><th>Phone</th><th>Source</th><th>Background</th>
+        <th>Interest</th><th>Slot</th><th>Status</th><th>Notes</th>
+      </tr></thead><tbody id="leadRows"></tbody></table>
+    </section>
+
+    <!-- POSTS -->
+    <section data-panel="posts" class="hide">
+      <div class="toolbar">
+        <button class="btn btn--primary" id="newPost" type="button">New article</button>
+        <select id="postPick"><option value="">— open an article —</option></select>
+        <span class="label" id="postState"></span>
+      </div>
+      <div id="postMsg" class="msg msg--ok hide"></div>
+      <div class="editor">
+        <div>
+          <div class="field"><label for="pTitle">Title</label><input id="pTitle" type="text"></div>
+          <div class="field"><label for="pBody">Body (Markdown)</label><textarea id="pBody"></textarea></div>
+        </div>
+        <div>
+          <div class="field"><label for="pSlug">Slug</label><input id="pSlug" type="text"></div>
+          <div class="field"><label for="pTag">Tag</label><input id="pTag" type="text" placeholder="AutoCAD"></div>
+          <div class="field"><label for="pExcerpt">Excerpt</label><textarea id="pExcerpt" rows="3"></textarea></div>
+          <div class="field"><label for="pSeoDesc">Meta description</label><textarea id="pSeoDesc" rows="3"></textarea></div>
+          <div class="field">
+            <label for="pFile">Attach a file (max 20 MB)</label>
+            <input id="pFile" type="file">
+            <span class="field__help">Uploads and inserts a Markdown link at the end of the body.</span>
+          </div>
+          <div class="flex fcol gap-1">
+            <button class="btn btn--ghost btn--wide" id="uploadMedia" type="button">Upload file</button>
+            <button class="btn btn--ghost btn--wide" id="saveDraft" type="button">Save draft</button>
+            <button class="btn btn--primary btn--wide" id="publish" type="button">Publish</button>
+            <button class="btn btn--ghost btn--wide" id="unpublish" type="button">Unpublish</button>
+          </div>
+          <p class="t-small t-muted mt-3">Publishing writes to the database and fires the deploy
+            hook, which reruns the static build. The article appears on /news/ once that
+            finishes — typically a minute or two.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SYLLABI -->
+    <section data-panel="syllabus" class="hide">
+      <div class="toolbar">
+        <input id="sylQ" type="search" placeholder="Filter courses">
+        <span class="label" id="sylStat"></span>
+      </div>
+      <div id="sylMsg" class="msg hide"></div>
+      <table><thead><tr>
+        <th>Course</th><th>Current syllabus</th><th>Size</th><th>Uploaded</th><th>Replace (PDF, max 20 MB)</th>
+      </tr></thead><tbody id="sylRows"></tbody></table>
+    </section>
+
+    <!-- VIDEOS -->
+    <section data-panel="videos" class="hide">
+      <div class="toolbar">
+        <input id="vTitle" type="text" placeholder="Title, e.g. CADD Quest 2026 highlights" style="min-width:260px">
+        <input id="vUrl" type="url" placeholder="https://youtube.com/watch?v=... or any https CDN URL" style="min-width:320px">
+        <input id="vCap" type="text" placeholder="Caption (optional)">
+        <button class="btn btn--primary" id="vAdd" type="button">Add video</button>
+      </div>
+      <div id="vMsg" class="msg hide"></div>
+      <p class="t-small t-muted" style="margin-bottom:12px">YouTube, Vimeo and direct MP4 URLs are all accepted. These appear on Life @ CADD after the next rebuild.</p>
+      <table><thead><tr><th>#</th><th>Title</th><th>URL</th><th>Caption</th><th>Status</th><th></th></tr></thead>
+        <tbody id="vRows"></tbody></table>
+    </section>
+  </div>
+</div>
+
+<script>
+window.__COURSES__ = [
+    {slug:"revit-architecture", name:"Revit Architecture"},
+    {slug:"revit-structure", name:"Revit Structure"},
+    {slug:"revit-mep", name:"Revit MEP"},
+    {slug:"civil-3d", name:"Civil 3D"},
+    {slug:"autocad-civil", name:"AutoCAD Civil"},
+    {slug:"staad-pro", name:"STAAD.Pro"},
+    {slug:"etabs", name:"ETABS (CSI)"},
+    {slug:"5d-bim", name:"5D BIM"},
+    {slug:"5d-bim-navisworks", name:"5D BIM using Navisworks"},
+    {slug:"sketchup", name:"SketchUp"},
+    {slug:"v-ray", name:"V-Ray"},
+    {slug:"lumion", name:"Lumion"},
+    {slug:"3ds-max", name:"3ds Max for Engineers"},
+    {slug:"solidworks", name:"SolidWorks"},
+    {slug:"catia", name:"CATIA"},
+    {slug:"creo", name:"Creo Parametric"},
+    {slug:"nx-cad", name:"NX CAD"},
+    {slug:"ansys", name:"Ansys"},
+    {slug:"ansys-workbench", name:"Ansys Workbench"},
+    {slug:"ansys-fluent", name:"Ansys Fluent"},
+    {slug:"nx-nastran", name:"NX Nastran"},
+    {slug:"autodesk-inventor", name:"Autodesk Inventor"},
+    {slug:"gdt", name:"GD&T"},
+    {slug:"autocad-mechanical", name:"AutoCAD 2D & 3D Mechanical"},
+    {slug:"autocad-3d", name:"AutoCAD 3D"},
+    {slug:"3d-printing", name:"3D Printing & Prototyping"},
+    {slug:"primavera-ppm", name:"Primavera P6 with PPM"},
+    {slug:"ms-project-ppm", name:"MS Project with PPM"},
+    {slug:"autocad-electrical", name:"AutoCAD Electrical"},
+    {slug:"pc-schematic", name:"PC Schematic"},
+    {slug:"automation-cad", name:"Automation CAD"}
+];
+const $ = s => document.querySelector(s);
+const api = (u, o = {}) => fetch(u, { credentials: 'same-origin',
+  headers: { 'Content-Type': 'application/json' }, ...o });
+
+/* ---- auth ---- */
+async function boot() {
+  const r = await api('/api/leads?limit=1');
+  if (r.ok) { $('#login').classList.add('hide'); $('#app').classList.remove('hide'); loadLeads(); loadPosts(); loadSyllabi(); loadVideos(); }
+}
+$('#loginBtn').onclick = async () => {
+  const r = await api('/api/login', { method: 'POST', body: JSON.stringify({ password: $('#pw').value }) });
+  if (r.ok) location.reload();
+  else { const m = $('#loginMsg'); m.textContent = (await r.json()).error || 'Sign in failed'; m.classList.remove('hide'); }
+};
+$('#pw').addEventListener('keydown', e => { if (e.key === 'Enter') $('#loginBtn').click(); });
+$('#logout').onclick = async () => { await api('/api/login', { method: 'DELETE' }); location.reload(); };
+
+/* ---- tabs ---- */
+document.querySelectorAll('[data-tab]').forEach(b => b.onclick = () => {
+  document.querySelectorAll('[data-tab]').forEach(x => x.setAttribute('aria-selected', String(x === b)));
+  document.querySelectorAll('[data-panel]').forEach(p =>
+    p.classList.toggle('hide', p.dataset.panel !== b.dataset.tab));
+});
+
+/* ---- leads ---- */
+function qs() {
+  const p = new URLSearchParams();
+  if ($('#q').value) p.set('q', $('#q').value);
+  if ($('#fSource').value) p.set('source', $('#fSource').value);
+  if ($('#fStatus').value) p.set('status', $('#fStatus').value);
+  if ($('#fFrom').value) p.set('from', $('#fFrom').value);
+  if ($('#fTo').value) p.set('to', $('#fTo').value + 'T23:59:59');
+  return p.toString();
+}
+async function loadLeads() {
+  const r = await api('/api/leads?' + qs());
+  if (!r.ok) return;
+  const { rows } = await r.json();
+  $('#stat').textContent = rows.length + ' leads';
+  $('#leadRows').innerHTML = rows.map(l => `
+    <tr>
+      <td>${new Date(l.created_at).toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' })}</td>
+      <td><strong>${esc(l.name)}</strong>${l.email ? '<br><span class="t-muted">' + esc(l.email) + '</span>' : ''}</td>
+      <td><a href="tel:${esc(l.phone)}">${esc(l.phone)}</a></td>
+      <td><span class="pill">${esc(l.source)}</span></td>
+      <td>${esc(l.background || '')}</td>
+      <td>${esc(l.recommended || l.interest || l.course || '')}</td>
+      <td>${[l.slot_day, l.slot_time, l.slot_channel].filter(Boolean).map(esc).join('<br>')}</td>
+      <td><select data-id="${l.id}" class="stSel">
+        ${['new','contacted','booked','enrolled','lost'].map(s =>
+          `<option ${s === l.status ? 'selected' : ''}>${s}</option>`).join('')}
+      </select></td>
+      <td><input class="ntIn" data-id="${l.id}" value="${esc(l.notes || '')}" placeholder="add a note"></td>
+    </tr>`).join('');
+  document.querySelectorAll('.stSel').forEach(s => s.onchange = () =>
+    api('/api/leads', { method: 'PATCH', body: JSON.stringify({ id: s.dataset.id, status: s.value }) }));
+  document.querySelectorAll('.ntIn').forEach(i => i.onchange = () =>
+    api('/api/leads', { method: 'PATCH', body: JSON.stringify({ id: i.dataset.id, notes: i.value }) }));
+}
+const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;' }[c]));
+$('#refresh').onclick = loadLeads;
+['#q','#fSource','#fStatus','#fFrom','#fTo'].forEach(s => $(s).addEventListener('change', loadLeads));
+$('#csv').onclick = () => location.href = '/api/leads?format=csv&' + qs();
+
+/* ---- posts ---- */
+async function loadPosts() {
+  const r = await api('/api/posts'); if (!r.ok) return;
+  const { rows } = await r.json();
+  $('#postPick').innerHTML = '<option value="">— open an article —</option>' +
+    rows.map(p => `<option value="${esc(p.slug)}">${esc(p.title)} (${p.status})</option>`).join('');
+  window._posts = rows;
+}
+$('#postPick').onchange = () => {
+  const p = (window._posts || []).find(x => x.slug === $('#postPick').value);
+  if (!p) return;
+  $('#pTitle').value = p.title; $('#pSlug').value = p.slug; $('#pTag').value = p.tag || '';
+  $('#pExcerpt').value = p.excerpt || ''; $('#pBody').value = p.body_md;
+  $('#pSeoDesc').value = p.seo_desc || ''; $('#postState').textContent = p.status;
+};
+$('#newPost').onclick = () => {
+  ['#pTitle','#pSlug','#pTag','#pExcerpt','#pBody','#pSeoDesc'].forEach(s => $(s).value = '');
+  $('#postState').textContent = 'new'; $('#postPick').value = '';
+};
+async function savePost(status) {
+  const body = { slug: $('#pSlug').value || slugify($('#pTitle').value), title: $('#pTitle').value,
+    tag: $('#pTag').value, excerpt: $('#pExcerpt').value, body_md: $('#pBody').value,
+    seo_desc: $('#pSeoDesc').value, status, rebuild: true };
+  const r = await api('/api/posts', { method: 'POST', body: JSON.stringify(body) });
+  const m = $('#postMsg'); m.classList.remove('hide');
+  m.className = 'msg ' + (r.ok ? 'msg--ok' : 'msg--err');
+  m.textContent = r.ok ? (status === 'published'
+      ? 'Published. The site is rebuilding — live in a minute or two.' : 'Draft saved.')
+    : ((await r.json()).error || 'Save failed');
+  if (r.ok) { $('#postState').textContent = status; loadPosts(); }
+}
+const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+$('#saveDraft').onclick = () => savePost('draft');
+$('#publish').onclick = () => savePost('published');
+$('#unpublish').onclick = () => savePost('draft');
+
+/* ---- shared upload ---- */
+async function uploadFile(file, kind, slug) {
+  if (!file) return { error: 'Choose a file first' };
+  if (file.size > 20 * 1024 * 1024) return { error: 'File exceeds the 20 MB limit' };
+  if (kind === 'syllabus' && file.type !== 'application/pdf' && !/\.pdf$/i.test(file.name)) {
+    return { error: 'Syllabus must be a PDF' };
+  }
+  const qs = new URLSearchParams({ kind, filename: file.name });
+  if (slug) qs.set('slug', slug);
+  const r = await fetch('/api/upload?' + qs, {
+    method: 'POST', credentials: 'same-origin',
+    headers: { 'Content-Type': file.type || 'application/octet-stream' }, body: file });
+  return r.json();
+}
+const kb = n => n > 1048576 ? (n / 1048576).toFixed(1) + ' MB' : Math.round(n / 1024) + ' KB';
+
+/* ---- syllabi ---- */
+const COURSES = window.__COURSES__ || [];
+async function loadSyllabi() {
+  const r = await api('/api/syllabus?all=1'); if (!r.ok) return;
+  const { rows } = await r.json();
+  const map = {}; rows.forEach(x => map[x.course_slug] = x);
+  const f = ($('#sylQ').value || '').toLowerCase();
+  const list = COURSES.filter(c => !f || c.name.toLowerCase().includes(f));
+  $('#sylStat').textContent = rows.length + ' of ' + COURSES.length + ' courses have a syllabus';
+  $('#sylRows').innerHTML = list.map(c => {
+    const s = map[c.slug];
+    return `<tr>
+      <td><strong>${esc(c.name)}</strong><br><span class="t-muted">${esc(c.slug)}</span></td>
+      <td>${s ? `<a href="/api/syllabus?slug=${esc(c.slug)}" target="_blank">${esc(s.filename)}</a>`
+               : '<span class="pill st-new">none</span>'}</td>
+      <td>${s ? kb(s.size_bytes) : '—'}</td>
+      <td>${s ? new Date(s.uploaded_at).toLocaleDateString('en-IN') : '—'}</td>
+      <td><input type="file" accept="application/pdf" class="sylUp" data-slug="${esc(c.slug)}"></td>
+    </tr>`; }).join('');
+  document.querySelectorAll('.sylUp').forEach(i => i.onchange = async () => {
+    const m = $('#sylMsg'); m.classList.remove('hide'); m.className = 'msg';
+    m.textContent = 'Uploading…';
+    const out = await uploadFile(i.files[0], 'syllabus', i.dataset.slug);
+    m.className = 'msg ' + (out.error ? 'msg--err' : 'msg--ok');
+    m.textContent = out.error || ('Uploaded ' + kb(out.size) + ' — the download button for this course is now live.');
+    if (!out.error) loadSyllabi();
+  });
+}
+$('#sylQ') && $('#sylQ').addEventListener('input', loadSyllabi);
+
+/* ---- article media ---- */
+$('#uploadMedia') && ($('#uploadMedia').onclick = async () => {
+  const m = $('#postMsg'); m.classList.remove('hide'); m.className = 'msg';
+  m.textContent = 'Uploading…';
+  const out = await uploadFile($('#pFile').files[0], 'media');
+  m.className = 'msg ' + (out.error ? 'msg--err' : 'msg--ok');
+  if (out.error) { m.textContent = out.error; return; }
+  const n = $('#pFile').files[0].name;
+  const isImg = /\.(png|jpe?g|webp|avif|gif|svg)$/i.test(n);
+  $('#pBody').value += `\n\n${isImg ? '!' : ''}[${n}](${out.url})\n`;
+  m.textContent = 'Uploaded ' + kb(out.size) + ' and inserted into the body.';
+});
+
+/* ---- videos ---- */
+async function loadVideos() {
+  const r = await api('/api/videos'); if (!r.ok) return;
+  const { rows } = await r.json();
+  $('#vRows').innerHTML = rows.map(v => `<tr>
+    <td>${v.position || 0}</td><td><strong>${esc(v.title)}</strong></td>
+    <td style="max-width:280px;overflow-wrap:anywhere"><a href="${esc(v.url)}" target="_blank" rel="noopener">${esc(v.url)}</a></td>
+    <td>${esc(v.caption || '')}</td><td><span class="pill">${esc(v.status)}</span></td>
+    <td><button class="btn btn--ghost vDel" data-id="${v.id}" type="button">Remove</button></td>
+  </tr>`).join('') || '<tr><td colspan="6" class="t-muted">No videos yet.</td></tr>';
+  document.querySelectorAll('.vDel').forEach(b => b.onclick = async () => {
+    await api('/api/videos?id=' + b.dataset.id, { method: 'DELETE' }); loadVideos();
+  });
+}
+$('#vAdd') && ($('#vAdd').onclick = async () => {
+  const m = $('#vMsg'); m.classList.remove('hide');
+  const r = await api('/api/videos', { method: 'POST', body: JSON.stringify({
+    title: $('#vTitle').value, url: $('#vUrl').value, caption: $('#vCap').value }) });
+  const j = await r.json();
+  m.className = 'msg ' + (r.ok ? 'msg--ok' : 'msg--err');
+  m.textContent = r.ok ? 'Added. It appears on Life @ CADD after the next rebuild.' : (j.error || 'Failed');
+  if (r.ok) { $('#vTitle').value = ''; $('#vUrl').value = ''; $('#vCap').value = ''; loadVideos(); }
+});
+
+boot();
+</script>
+</body>
+</html>

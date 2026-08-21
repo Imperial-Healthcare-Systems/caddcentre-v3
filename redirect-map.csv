@@ -1,0 +1,79 @@
+old_url,new_url,redirect_type,sessions_12mo,ranking_keywords,tested,verified_prod,notes
+/courses/revit-architecture/,/programs/revit-architecture/,301,,,N,N,Course page rewritten — Revit Architecture
+/revit-architecture/,/programs/revit-architecture/,301,,,N,N,Course page rewritten — Revit Architecture
+/courses/revit-structure/,/programs/revit-structure/,301,,,N,N,Course page rewritten — Revit Structure
+/revit-structure/,/programs/revit-structure/,301,,,N,N,Course page rewritten — Revit Structure
+/courses/revit-mep/,/programs/revit-mep/,301,,,N,N,Course page rewritten — Revit MEP
+/revit-mep/,/programs/revit-mep/,301,,,N,N,Course page rewritten — Revit MEP
+/courses/civil-3d/,/programs/civil-3d/,301,,,N,N,Course page rewritten — Civil 3D
+/civil-3d/,/programs/civil-3d/,301,,,N,N,Course page rewritten — Civil 3D
+/autocad/autocad-civil/,/programs/autocad-civil/,301,,,N,N,Course page rewritten — AutoCAD Civil
+/autocad-civil/,/programs/autocad-civil/,301,,,N,N,Course page rewritten — AutoCAD Civil
+/courses/staad-pro/,/programs/staad-pro/,301,,,N,N,Course page rewritten — STAAD.Pro
+/staad-pro/,/programs/staad-pro/,301,,,N,N,Course page rewritten — STAAD.Pro
+/courses/etabs-csi/,/programs/etabs/,301,,,N,N,Course page rewritten — ETABS (CSI)
+/etabs-csi/,/programs/etabs/,301,,,N,N,Course page rewritten — ETABS (CSI)
+/courses/5d-bim/,/programs/5d-bim/,301,,,N,N,Course page rewritten — 5D BIM
+/5d-bim/,/programs/5d-bim/,301,,,N,N,Course page rewritten — 5D BIM
+/5d-bim-using-navisworks/,/programs/5d-bim-navisworks/,301,,,N,N,Course page rewritten — 5D BIM using Navisworks
+/courses/5d-bim-using-navisworks/,/programs/5d-bim-navisworks/,301,,,N,N,Course page rewritten — 5D BIM using Navisworks
+/courses/sketchup/,/programs/sketchup/,301,,,N,N,Course page rewritten — SketchUp
+/sketchup/,/programs/sketchup/,301,,,N,N,Course page rewritten — SketchUp
+/courses/v-ray/,/programs/v-ray/,301,,,N,N,Course page rewritten — V-Ray
+/v-ray/,/programs/v-ray/,301,,,N,N,Course page rewritten — V-Ray
+/courses/lumion/,/programs/lumion/,301,,,N,N,Course page rewritten — Lumion
+/lumion/,/programs/lumion/,301,,,N,N,Course page rewritten — Lumion
+/courses/3ds-max-course-for-engineers/,/programs/3ds-max/,301,,,N,N,Course page rewritten — 3ds Max for Engineers
+/3ds-max-max-for-engineers/,/programs/3ds-max/,301,,,N,N,Course page rewritten — 3ds Max for Engineers
+/courses/solid-works/,/programs/solidworks/,301,,,N,N,Course page rewritten — SolidWorks
+/solid-works/,/programs/solidworks/,301,,,N,N,Course page rewritten — SolidWorks
+/courses/catia/,/programs/catia/,301,,,N,N,Course page rewritten — CATIA
+/catia/,/programs/catia/,301,,,N,N,Course page rewritten — CATIA
+/courses/creo/,/programs/creo/,301,,,N,N,Course page rewritten — Creo Parametric
+/creo/,/programs/creo/,301,,,N,N,Course page rewritten — Creo Parametric
+/courses/nx-cad/,/programs/nx-cad/,301,,,N,N,Course page rewritten — NX CAD
+/nx-cad/,/programs/nx-cad/,301,,,N,N,Course page rewritten — NX CAD
+/courses/ansys/,/programs/ansys/,301,,,N,N,Course page rewritten — Ansys
+/ansys/,/programs/ansys/,301,,,N,N,Course page rewritten — Ansys
+/ansys-workbench/,/programs/ansys-workbench/,301,,,N,N,Course page rewritten — Ansys Workbench
+/courses/ansys-workbench/,/programs/ansys-workbench/,301,,,N,N,Course page rewritten — Ansys Workbench
+/courses/ansys-fluent/,/programs/ansys-fluent/,301,,,N,N,Course page rewritten — Ansys Fluent
+/ansys-fluent/,/programs/ansys-fluent/,301,,,N,N,Course page rewritten — Ansys Fluent
+/courses/nx-nastran/,/programs/nx-nastran/,301,,,N,N,Course page rewritten — NX Nastran
+/nx-nastran/,/programs/nx-nastran/,301,,,N,N,Course page rewritten — NX Nastran
+/courses/autodesk-inventor/,/programs/autodesk-inventor/,301,,,N,N,Course page rewritten — Autodesk Inventor
+/autodesk-inventor/,/programs/autodesk-inventor/,301,,,N,N,Course page rewritten — Autodesk Inventor
+/courses/gdt-course/,/programs/gdt/,301,,,N,N,Course page rewritten — GD&amp;T
+/gdt/,/programs/gdt/,301,,,N,N,Course page rewritten — GD&amp;T
+/autocad/autocad-2d-3d-mechanical/,/programs/autocad-mechanical/,301,,,N,N,Course page rewritten — AutoCAD 2D &amp; 3D Mechanical
+/autocad-2d-3d-mechanical/,/programs/autocad-mechanical/,301,,,N,N,Course page rewritten — AutoCAD 2D &amp; 3D Mechanical
+/autocad/autocad-3d/,/programs/autocad-3d/,301,,,N,N,Course page rewritten — AutoCAD 3D
+/autocad-3d/,/programs/autocad-3d/,301,,,N,N,Course page rewritten — AutoCAD 3D
+/courses/3d-printing/,/programs/3d-printing/,301,,,N,N,Course page rewritten — 3D Printing &amp; Prototyping
+/3d-printing/,/programs/3d-printing/,301,,,N,N,Course page rewritten — 3D Printing &amp; Prototyping
+/courses/primavera-with-ppm/,/programs/primavera-ppm/,301,,,N,N,Course page rewritten — Primavera P6 with PPM
+/primavera-with-ppm/,/programs/primavera-ppm/,301,,,N,N,Course page rewritten — Primavera P6 with PPM
+/courses/microsoft-office-with-ppm/,/programs/ms-project-ppm/,301,,,N,N,Course page rewritten — MS Project with PPM
+/microsoft-office-with-ppm/,/programs/ms-project-ppm/,301,,,N,N,Course page rewritten — MS Project with PPM
+/autocad/autocad-electrical/,/programs/autocad-electrical/,301,,,N,N,Course page rewritten — AutoCAD Electrical
+/autocad-electrical/,/programs/autocad-electrical/,301,,,N,N,Course page rewritten — AutoCAD Electrical
+/courses/pc-schematic/,/programs/pc-schematic/,301,,,N,N,Course page rewritten — PC Schematic
+/pc-schematic/,/programs/pc-schematic/,301,,,N,N,Course page rewritten — PC Schematic
+/courses/automation-cad/,/programs/automation-cad/,301,,,N,N,Course page rewritten — Automation CAD
+/automation-or-cad/,/programs/automation-cad/,301,,,N,N,Course page rewritten — Automation CAD
+/insights/autocad-basic-drawing-guide/,/news/autocad-basic-drawing-guide/,301,,,N,N,Article moved with the Insights to News rename
+/insights/autocad-2d-mechanical-drawing/,/news/autocad-2d-mechanical-drawing/,301,,,N,N,Article moved with the Insights to News rename
+/bim/,/career-paths/bim-digital-construction/,301,,,N,N,Course hub maps to the career path
+/revit-architecture-structure-mep-training-certification-course/,/programs/revit-architecture/,301,,,N,N,Combined legacy page
+/our-courses/,/programs/,301,,,N,N,Index replaced by filterable programmes index
+/about-us/,/about/,301,,,N,N,About rewritten
+/blog/,/news/,301,,,N,N,Blog becomes News
+/blog/autocad-basic-drawing-a-complete-guide/,/news/autocad-basic-drawing-guide/,301,,,N,N,Article migrated
+/blog/master-autocad-2d-mechanical-drawing/,/news/autocad-2d-mechanical-drawing/,301,,,N,N,Article migrated
+/insights/,/news/,301,,,N,N,Insights section renamed to News
+/privacy-policy/,/privacy-policy/,n/a (retained),,,N,N,Retained
+/terms-conditions/,/terms-conditions/,n/a (retained),,,N,N,Retained
+/disclaimer-page/,/disclaimer/,301,,,N,N,Slug normalised
+/contact/,/contact/,n/a (retained),,,N,N,Retained
+/first-job-pakka/,/careers/first-job-pakka/,301,,,N,N,Promoted into the Careers section
+/thank-you/,/contact/,301,,,N,N,Legacy form thank-you page — replaced by the in-page reward screen

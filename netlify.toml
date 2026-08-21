@@ -1,0 +1,455 @@
+[build]
+  publish = "."
+
+[[redirects]]
+  from = "/courses/revit-architecture/"
+  to = "/programs/revit-architecture/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/revit-architecture/"
+  to = "/programs/revit-architecture/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/revit-structure/"
+  to = "/programs/revit-structure/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/revit-structure/"
+  to = "/programs/revit-structure/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/revit-mep/"
+  to = "/programs/revit-mep/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/revit-mep/"
+  to = "/programs/revit-mep/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/civil-3d/"
+  to = "/programs/civil-3d/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/civil-3d/"
+  to = "/programs/civil-3d/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad/autocad-civil/"
+  to = "/programs/autocad-civil/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad-civil/"
+  to = "/programs/autocad-civil/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/staad-pro/"
+  to = "/programs/staad-pro/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/staad-pro/"
+  to = "/programs/staad-pro/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/etabs-csi/"
+  to = "/programs/etabs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/etabs-csi/"
+  to = "/programs/etabs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/5d-bim/"
+  to = "/programs/5d-bim/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/5d-bim/"
+  to = "/programs/5d-bim/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/5d-bim-using-navisworks/"
+  to = "/programs/5d-bim-navisworks/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/5d-bim-using-navisworks/"
+  to = "/programs/5d-bim-navisworks/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/sketchup/"
+  to = "/programs/sketchup/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sketchup/"
+  to = "/programs/sketchup/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/v-ray/"
+  to = "/programs/v-ray/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/v-ray/"
+  to = "/programs/v-ray/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/lumion/"
+  to = "/programs/lumion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lumion/"
+  to = "/programs/lumion/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/3ds-max-course-for-engineers/"
+  to = "/programs/3ds-max/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/3ds-max-max-for-engineers/"
+  to = "/programs/3ds-max/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/solid-works/"
+  to = "/programs/solidworks/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/solid-works/"
+  to = "/programs/solidworks/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/catia/"
+  to = "/programs/catia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/catia/"
+  to = "/programs/catia/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/creo/"
+  to = "/programs/creo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/creo/"
+  to = "/programs/creo/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/nx-cad/"
+  to = "/programs/nx-cad/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nx-cad/"
+  to = "/programs/nx-cad/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/ansys/"
+  to = "/programs/ansys/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ansys/"
+  to = "/programs/ansys/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ansys-workbench/"
+  to = "/programs/ansys-workbench/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/ansys-workbench/"
+  to = "/programs/ansys-workbench/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/ansys-fluent/"
+  to = "/programs/ansys-fluent/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/ansys-fluent/"
+  to = "/programs/ansys-fluent/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/nx-nastran/"
+  to = "/programs/nx-nastran/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/nx-nastran/"
+  to = "/programs/nx-nastran/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/autodesk-inventor/"
+  to = "/programs/autodesk-inventor/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autodesk-inventor/"
+  to = "/programs/autodesk-inventor/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/gdt-course/"
+  to = "/programs/gdt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/gdt/"
+  to = "/programs/gdt/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad/autocad-2d-3d-mechanical/"
+  to = "/programs/autocad-mechanical/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad-2d-3d-mechanical/"
+  to = "/programs/autocad-mechanical/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad/autocad-3d/"
+  to = "/programs/autocad-3d/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad-3d/"
+  to = "/programs/autocad-3d/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/3d-printing/"
+  to = "/programs/3d-printing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/3d-printing/"
+  to = "/programs/3d-printing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/primavera-with-ppm/"
+  to = "/programs/primavera-ppm/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/primavera-with-ppm/"
+  to = "/programs/primavera-ppm/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/microsoft-office-with-ppm/"
+  to = "/programs/ms-project-ppm/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/microsoft-office-with-ppm/"
+  to = "/programs/ms-project-ppm/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad/autocad-electrical/"
+  to = "/programs/autocad-electrical/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/autocad-electrical/"
+  to = "/programs/autocad-electrical/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/pc-schematic/"
+  to = "/programs/pc-schematic/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pc-schematic/"
+  to = "/programs/pc-schematic/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/courses/automation-cad/"
+  to = "/programs/automation-cad/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/automation-or-cad/"
+  to = "/programs/automation-cad/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insights/autocad-basic-drawing-guide/"
+  to = "/news/autocad-basic-drawing-guide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insights/autocad-2d-mechanical-drawing/"
+  to = "/news/autocad-2d-mechanical-drawing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/bim/"
+  to = "/career-paths/bim-digital-construction/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/revit-architecture-structure-mep-training-certification-course/"
+  to = "/programs/revit-architecture/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/our-courses/"
+  to = "/programs/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/about-us/"
+  to = "/about/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/"
+  to = "/news/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/autocad-basic-drawing-a-complete-guide/"
+  to = "/news/autocad-basic-drawing-guide/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/master-autocad-2d-mechanical-drawing/"
+  to = "/news/autocad-2d-mechanical-drawing/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/insights/"
+  to = "/news/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/disclaimer-page/"
+  to = "/disclaimer/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/first-job-pakka/"
+  to = "/careers/first-job-pakka/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/thank-you/"
+  to = "/contact/"
+  status = 301
+  force = true
+
+# Generated from build_data.py. Complete the sessions/keywords columns in
+# redirect-map.csv from a live crawl before launch.

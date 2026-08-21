@@ -1,0 +1,35 @@
+{
+  "source": "seed",
+  "note": "Taken by hand from the Google Business Profile listing. Overwritten by `build_reviews.py --fetch` once GOOGLE_MAPS_API_KEY is set, which also brings reviewer photo URLs.",
+  "placeId": "",
+  "rating": 4.9,
+  "ratingCount": 207,
+  "reviewsUrl": "https://www.google.com/maps/search/?api=1&query=CADD+Centre+Gurugram+Sector+14",
+  "fetchedAt": "2026-08-17",
+  "reviews": [
+    {
+      "author": "Ankit Kumar",
+      "rating": 5,
+      "when": "1 year ago",
+      "publishTime": "",
+      "text": "Best teaching centre with best environment",
+      "photo": ""
+    },
+    {
+      "author": "Soni Adhikari",
+      "rating": 5,
+      "when": "1 year ago",
+      "publishTime": "",
+      "text": "Positive side of this cadd center is teachers are experienced supportive teaching way is easy with exmp variety of courses avlb placement…",
+      "photo": ""
+    },
+    {
+      "author": "Ram Bhavan",
+      "rating": 5,
+      "when": "1 year ago",
+      "publishTime": "",
+      "text": "Join civil 3d so far classmate going pretty well faculty seems professional experienced also",
+      "photo": ""
+    }
+  ]
+}

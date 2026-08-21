@@ -1,0 +1,24 @@
+# Keep the deployment to the actual site. Verified non-runtime: nothing in
+# api/ or any of the 59 built HTML pages references /src/, /db/, or the docs.
+# Trims the payload from ~71 MB to ~31 MB.
+
+# Build sources — 38.5 MB, including a 3.5 MB preview.html and a duplicate
+# copy of assets/. README.md is explicit that preview.html is not deployable.
+src/
+
+# Local mock server (serves data/local-db.json; Vercel uses api/ instead)
+serve.js
+data/
+
+# Schema is applied by hand against Neon, never read at request time
+db/
+
+# Netlify config — inert on Vercel, and its redirect set differs from
+# vercel.json. Kept in git, just not shipped.
+netlify.toml
+_headers
+
+# Internal docs and planning artefacts
+*.md
+content-inventory.csv
+redirect-map.csv

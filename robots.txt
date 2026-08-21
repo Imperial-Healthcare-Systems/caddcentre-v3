@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /lp/
+Disallow: /admin
+Disallow: /api/
+
+Sitemap: https://caddcentregurugram.com/sitemap.xml
