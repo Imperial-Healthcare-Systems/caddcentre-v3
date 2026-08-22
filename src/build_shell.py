@@ -62,6 +62,7 @@ ROUTES = {
     "life": "life-at-cadd/index.html",
     "mentor": "apply-as-mentor/index.html",
     "news": "news/index.html",
+    "testimonials": "testimonials/index.html",
     "privacy-policy": "privacy-policy/index.html",
     "terms-conditions": "terms-conditions/index.html",
     "disclaimer": "disclaimer/index.html",
@@ -169,6 +170,8 @@ def header(mode, depth=0, active="", pid=""):
                 f'</span>{courses}{more}</div>')
 
     mega_programs = "".join(_dept_block(d) for d in DEPARTMENTS if d["courses"])
+    n_progs = len(_PROGS)
+    n_depts = len([d for d in DEPARTMENTS if d["courses"]])
 
     drawer_paths = "".join(
         f'<a {L("path:" + k, mode, depth)}>{n}</a>' for k, n, d in PATHS_NAV)
@@ -227,18 +230,8 @@ def header(mode, depth=0, active="", pid=""):
     <nav class="nav" aria-label="Primary">
       {link("home", "Home")}
       {link("about", "About")}
-      <div class="nav__item">
-        <button class="nav__link" data-mega-trigger aria-expanded="false" aria-controls="mega-paths">
-          Career Paths
-          <svg class="nav__chev" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-      </div>
-      <div class="nav__item">
-        <button class="nav__link" data-mega-trigger aria-expanded="false" aria-controls="mega-programs">
-          Programs
-          <svg class="nav__chev" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5"/></svg>
-        </button>
-      </div>
+      {link("career-paths", "Career Paths")}
+      {link("programs", "Programs")}
       {link("corporate", "Corporate Training")}
       {link("careers", "Careers")}
       {link("life", "Life @ CADD")}
@@ -254,35 +247,6 @@ def header(mode, depth=0, active="", pid=""):
 
   {pagebar}
 
-  <div class="mega" id="mega-paths" data-open="false">
-    <div class="wrap mega__inner">
-      <div>
-        <p class="label mb-3">Departments &mdash; choose the career, we handle the software</p>
-        <div class="mega__cols">{mega_paths}</div>
-      </div>
-      <div class="mega__feature">
-        <p class="label label--accent">Not sure yet?</p>
-        <p class="t-h3 mt-2">Find your path in 60 seconds.</p>
-        <p class="t-small t-muted">Four questions. No sign-up, and you see the result before we ask for anything.</p>
-        <a class="btn btn--secondary mt-2" {L("finder", mode, depth)}>Start the finder</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="mega" id="mega-programs" data-open="false">
-    <div class="wrap mega__inner">
-      <div>
-        <p class="label mb-3">Courses grouped by department</p>
-        <div class="mega__cols mega__cols--depts">{mega_programs}</div>
-      </div>
-      <div class="mega__feature">
-        <p class="label label--accent">All courses</p>
-        <p class="t-h3 mt-2">Filter by department, level and format.</p>
-        <p class="t-small t-muted">32 courses across 8 departments. Each one opens into its module-by-module curriculum.</p>
-        <a class="btn btn--secondary mt-2" {L("programs", mode, depth)}>Browse all</a>
-      </div>
-    </div>
-  </div>
 </header>
 
 <div class="drawer" id="drawer" data-drawer data-open="false" aria-hidden="true">
@@ -310,6 +274,16 @@ def header(mode, depth=0, active="", pid=""):
 """
 
 
+def _has_testimonials():
+    """The Learner stories page exists only once real footage is supplied, so
+    the footer must not link to a page the build did not produce."""
+    try:
+        from build_data import TESTIMONIALS
+        return any(t.get("video") for t in TESTIMONIALS)
+    except ImportError:
+        return False
+
+
 def footer(mode, depth=0):
     up = "../" * depth
     paths = "".join(f'<li><a {L("path:" + k, mode, depth)}>{n}</a></li>' for k, n, d in PATHS_NAV)
@@ -318,7 +292,8 @@ def footer(mode, depth=0):
         ("About the centre", "about"), ("Corporate training", "corporate"),
         ("Careers &amp; placement", "careers"), ("First Job Pakka", "first-job-pakka"),
         ("Life @ CADD", "life"), ("Student work", "student-work"),
-        ("Apply as Mentor", "mentor"), ("News", "news"), ("Contact", "contact")])
+        ("Apply as Mentor", "mentor"), ("News", "news"), ("Contact", "contact")]
+        + ([("Learner stories", "testimonials")] if _has_testimonials() else []))
     return f"""
 <button class="totop" data-totop data-show="false" aria-label="Back to top" type="button">
   <svg viewBox="0 0 14 14" width="14" height="14" fill="none" aria-hidden="true"><path d="M7 13V1M2 6l5-5 5 5" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -385,7 +360,9 @@ def footer(mode, depth=0):
       </div>
       <div><h4>Career paths</h4><ul>{paths}</ul></div>
       <div><h4>Programmes</h4><ul>{progs}</ul></div>
-      <div><h4>Company</h4><ul>{company}</ul></div>
+      <div><h4>Company</h4><ul>{company}
+        <li><a href="{up}assets/docs/cadd-centre-prospectus.pdf" download>Course prospectus (PDF)</a></li>
+      </ul></div>
       <div>
         <h4>Visit the centre</h4>
         <ul>

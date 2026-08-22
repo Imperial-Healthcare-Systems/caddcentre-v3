@@ -2,7 +2,7 @@
 """Pages that were missing from the first build. Every one traces to an
 inventory row flagged NO."""
 
-from build_parts import figure, photo, photo_card
+from build_parts import figure, photo, photo_card, icon
 from build_pages import _faq
 from build_render import crumbs
 from build_shell import L, PHONE, PHONE_D, EMAIL, ADDRESS
@@ -221,16 +221,37 @@ def page_life(mode, depth=0):
     else:
         video_section = (
             '<figure class="vidbox"><div class="vidbox__frame">'
-            '<iframe src="https://www.youtube-nocookie.com/embed/FbJY_AvsFIk" '
-            'title="CADD Centre Gurugram — learner testimonials" loading="lazy" allowfullscreen '
+            '<iframe src="https://www.youtube-nocookie.com/embed/NQdqWVcbkMg" '
+            'title="CADD Centre Gurugram, Sector 14 — Autodesk Authorised Training Centre" loading="lazy" allowfullscreen '
             'allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture">'
-            '</iframe></div><figcaption><strong>Hear from our learners</strong></figcaption></figure>')
-    tiles = [("sitevisit", "Site visit"), ("presentation", "Project presentation"),
-             ("printing", "3D printing lab"), ("classroom", "Live class"),
-             ("trainer-context", "Guest session"), ("corporate", "Industry session"),
-             ("facilities", "The lab"), ("bim", "BIM review"),
-             ("competition", "Technical competition"), ("career-workshop", "Career workshop"),
-             ("mock-interview", "Mock interview"), ("job-fair", "Job fair")]
+            '</iframe></div><figcaption><strong>Inside CADD Centre Gurugram, Sector 14</strong></figcaption></figure>')
+    # (image slot, title, icon, what actually happens)
+    tiles = [
+        ("sitevisit", "Site visit", "building",
+         "See a live project and how the drawing becomes the building."),
+        ("presentation", "Project presentation", "mic",
+         "Stand up, present your work, and defend the decisions in it."),
+        ("printing", "3D printing lab", "layers",
+         "Take a model off the screen and hold the printed part."),
+        ("classroom", "Live class", "cap",
+         "Taught in the room, with a trainer who answers as you go."),
+        ("trainer-context", "Guest session", "mentor",
+         "A practitioner from the field, talking about the work as it is."),
+        ("corporate", "Industry session", "briefcase",
+         "What employers are hiring for, from the people doing the hiring."),
+        ("facilities", "The lab", "target",
+         "Licensed software on machines specified for the work."),
+        ("bim", "BIM review", "check",
+         "Models opened, clashes found, and the fixes agreed."),
+        ("competition", "Technical competition", "star",
+         "Timed technical challenges, judged on the work you produce."),
+        ("career-workshop", "Career workshop", "rocket",
+         "CV, portfolio and the questions you will actually be asked."),
+        ("mock-interview", "Mock interview", "users",
+         "Real technical questioning, and honest feedback afterwards."),
+        ("job-fair", "Job fair", "hands",
+         "Employers in the room, with your portfolio in your hand."),
+    ]
     return f"""
 <main id="main">
 <section class="section section--warm">
@@ -281,10 +302,20 @@ def page_life(mode, depth=0):
     </div>
     <p class="note mb-8">Dates, categories and entry terms are announced at the centre. Ask an advisor or follow us on social for the current calendar.</p>
 
-    <div class="marker"><span class="label label--accent">The gallery</span></div>
-    <h2 class="t-h2 mb-4">What happens here</h2>
-    <div class="wall rv">
-      {''.join(f'<figure class="wall__tile">{photo(sl, depth, "(max-width: 600px) 50vw, 17vw") if sl else ""}<figcaption>{c}</figcaption></figure>' for sl, c in tiles)}
+    <div class="gallhead">
+      <p class="label label--accent">The gallery</p>
+      <h2 class="t-h2 mt-1">What happens here</h2>
+      <span class="gallhead__rule" aria-hidden="true"></span>
+      <p class="t-lead mt-3">Explore, learn, build and get in front of employers &mdash; all in one place.</p>
+    </div>
+    <div class="gallgrid">
+      {''.join(
+        f'<article class="gcard rv" data-delay="{(i%6)*40}">'
+        f'<div class="gcard__img">{photo(sl, depth, "(max-width: 600px) 50vw, 17vw") if sl else ""}</div>'
+        f'<span class="gcard__ico">{icon(ic)}</span>'
+        f'<h3 class="gcard__t">{c}</h3>'
+        f'<p class="gcard__d">{d}</p>'
+        f'</article>' for i, (sl, c, ic, d) in enumerate(tiles))}
     </div>
   </div>
 </section>
@@ -583,6 +614,36 @@ def page_mentor(mode, depth=0):
       <p class="t-small t-muted mt-2">We read every application. If your discipline is not one we are
         running right now we will say so rather than leave you waiting.</p>
     </form>
+  </div>
+</section>
+</main>
+"""
+
+
+def page_testimonials(mode, depth=0):
+    """Every learner testimonial, with the person named and credited."""
+    from build_parts import published_testimonials, testimonial_tiles
+    items = published_testimonials()
+    return f"""
+<main id="main">
+<section class="section section--warm">
+  <div class="wrap">
+    {crumbs(mode, depth, [("Learner stories", None)])}
+    <h1 class="t-display mb-3">Hear it from them.</h1>
+    <p class="t-lead measure">Every one of these is a learner who sat in a classroom in Sector 14.
+      No scripts, no actors &mdash; and every name here is published with that person's permission.</p>
+  </div>
+</section>
+
+<section class="section testi">
+  <div class="wrap">
+    <div class="testi__grid testi__grid--page">{testimonial_tiles(items, depth)}</div>
+    <p class="note mt-6">Thinking about the same move? Book a free counselling session and we will tell you
+      honestly whether one of these paths fits your background.</p>
+    <div class="flex wrapf gap-2 mt-3">
+      <a class="btn btn--primary" {L("contact", mode, depth)}>Book career counselling</a>
+      <a class="btn btn--ghost" {L("finder", mode, depth)}>Find my career path</a>
+    </div>
   </div>
 </section>
 </main>

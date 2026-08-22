@@ -14,29 +14,54 @@
      Opens on click (not hover) so it works on touch and for keyboard users. */
   function initMega() {
     var triggers = $$('[data-mega-trigger]');
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    function panelOf(t) { return document.getElementById(t.getAttribute('aria-controls')); }
+
     function closeAll(except) {
       triggers.forEach(function (t) {
         if (t === except) return;
         t.setAttribute('aria-expanded', 'false');
-        var p = document.getElementById(t.getAttribute('aria-controls'));
+        var p = panelOf(t);
         if (p) p.setAttribute('data-open', 'false');
       });
     }
+    function open(t) {
+      var p = panelOf(t);
+      if (!p) return;
+      closeAll(t);
+      t.setAttribute('aria-expanded', 'true');
+      p.setAttribute('data-open', 'true');
+    }
+
     triggers.forEach(function (t) {
-      var panel = document.getElementById(t.getAttribute('aria-controls'));
+      var panel = panelOf(t);
       if (!panel) return;
-      t.addEventListener('click', function (e) {
-        e.preventDefault();
-        var open = t.getAttribute('aria-expanded') === 'true';
-        closeAll(t);
-        t.setAttribute('aria-expanded', String(!open));
-        panel.setAttribute('data-open', String(!open));
-      });
+      var item = t.closest('.nav__item') || t;
+
+      if (canHover) {
+        // Hover opens it; the click is left alone so the link can do its job.
+        item.addEventListener('mouseenter', function () { open(t); });
+        item.addEventListener('mouseleave', function () { closeAll(); });
+        panel.addEventListener('mouseenter', function () { open(t); });
+        panel.addEventListener('mouseleave', function () { closeAll(); });
+        t.addEventListener('focus', function () { open(t); });
+      } else {
+        // No hover to give on a touch screen: first tap opens the panel,
+        // a second tap on the same item follows the link.
+        t.addEventListener('click', function (e) {
+          if (t.getAttribute('aria-expanded') !== 'true') {
+            e.preventDefault();
+            open(t);
+          }
+        });
+      }
     });
+
     document.addEventListener('keydown', function (e) {
       if (e.key !== 'Escape') return;
-      var open = triggers.filter(function (t) { return t.getAttribute('aria-expanded') === 'true'; })[0];
-      if (open) { closeAll(); open.focus(); }
+      var openT = triggers.filter(function (t) { return t.getAttribute('aria-expanded') === 'true'; })[0];
+      if (openT) { closeAll(); openT.focus(); }
     });
     document.addEventListener('click', function (e) {
       if (e.target.closest('[data-mega-trigger]') || e.target.closest('.mega')) return;
@@ -110,14 +135,10 @@
       t.addEventListener('click', function () { open(t); });
     });
     closeBtn.addEventListener('click', close);
-    // Clicking the backdrop closes; clicking the certificate itself must not.
-    box.addEventListener('click', function (e) {
-      if (e.target === box) close();
-    });
+    box.addEventListener('click', function (e) { if (e.target === box) close(); });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && !box.hidden) close();
     });
-    // Only two focusable things in here, so the trap is just a bounce.
     box.addEventListener('keydown', function (e) {
       if (e.key === 'Tab') { e.preventDefault(); closeBtn.focus(); }
     });
@@ -127,8 +148,9 @@
      Cross-fades the hero photograph. The markup ships with only the first
      slide loadable; the rest carry their URLs in data-srcset/data-src so the
      preload scanner never queues them and the first slide stays the
-     uncontested LCP candidate. They are promoted after load, and only then
-     does rotation begin.
+     uncontested LCP candidate. Slides are fetched one ahead of where the
+     viewer is, so a visitor who scrolls straight past pays for two images
+     rather than the whole set.
 
      Nothing here is required for the hero to work: with this file absent, or
      with reduced motion requested, the first slide is a static hero. */
@@ -142,9 +164,6 @@
     var INTERVAL = 3500;
     var i = 0, timer = null, started = false;
 
-    // Slides are fetched one ahead of where the viewer is, not all at once.
-    // Someone who reads the headline and scrolls on pays for two images, not
-    // for the whole set, however many slides the centre adds later.
     function promote(n) {
       var sl = slides[n];
       if (!sl || sl.getAttribute('data-loaded') === 'true') return;
@@ -173,8 +192,6 @@
     function start() { if (!timer) timer = setInterval(advance, INTERVAL); }
     function stop() { clearInterval(timer); timer = null; }
 
-    // Nothing happens until the page has finished loading, so the slideshow
-    // can never compete with the hero image or the stylesheet for bandwidth.
     function begin() {
       if (started) return;
       started = true;
@@ -189,6 +206,131 @@
       if (document.hidden) stop();
       else if (started) start();
     });
+  }
+
+  /* ------------------------------------------------- Learner testimonials
+     An interactive gallery rather than a wall of moving thumbnails.
+
+       resting     the tile shows its own poster, nothing loaded
+       hover       that one clip plays, silent, and fades up over the poster
+       leave       it pauses, rewinds and fades back to the poster
+       click       plays the full video with sound and holds it there until
+                   clicked again
+
+     Only ever one video runs at a time: starting any tile stops whichever was
+     playing before. Nothing is fetched until a pointer actually arrives, so a
+     gallery of any size costs nothing to load.
+
+     Touch screens have no hover to give, so there tiles stay on their poster
+     and a tap plays — which is the behaviour a phone user expects anyway. */
+  function initTestimonials() {
+    var tiles = $$('[data-testi]');
+    if (!tiles.length) return;
+
+    var canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var current = null;          // the tile that owns playback right now
+
+    function video(tile) { return tile.querySelector('video'); }
+
+    // Every start gets a ticket. A play promise that settles after something
+    // else has taken over finds its ticket stale and does nothing — without
+    // this, a late-resolving fallback can restart a video that was stopped,
+    // and two clips end up running at once.
+    var ticket = 0;
+
+    function source(tile, full) {
+      var v = video(tile);
+      var want = full ? (tile.getAttribute('data-full') || tile.getAttribute('data-src'))
+                      : tile.getAttribute('data-src');
+      if (v.getAttribute('src') !== want) v.setAttribute('src', want);
+      return v;
+    }
+
+    function stop(tile) {
+      if (!tile) return;
+      ticket++;                       // invalidate anything still in flight
+      var v = video(tile);
+      v.pause();
+      try { v.currentTime = 0; } catch (e) {}
+      v.muted = true;
+      tile.removeAttribute('data-playing');
+      tile.removeAttribute('data-holding');
+      if (current === tile) current = null;
+    }
+
+    function start(tile, full) {
+      if (current && current !== tile) stop(current);   // one at a time
+      current = tile;
+      // Marked synchronously: clicking a button fires focus first, and if this
+      // waited on the play promise the focus handler would still think the
+      // tile was free and clobber the click.
+      if (full) tile.setAttribute('data-holding', 'true');
+      var mine = ++ticket;
+      var v = source(tile, full);
+      v.muted = !full;                                  // sound only on a click
+      var pr = v.play();
+      if (pr && pr.then) {
+        pr.then(function () {
+          if (mine !== ticket) return;                  // superseded
+          tile.setAttribute('data-playing', 'true');
+        }).catch(function () {
+          if (mine !== ticket) return;
+          // Autoplay refused (usually an unmuted play without a gesture).
+          // Fall back to the silent preview rather than leaving a dead tile.
+          if (full) {
+            v.muted = true;
+            v.play().then(function () {
+              if (mine === ticket) tile.setAttribute('data-playing', 'true');
+            }).catch(function () {});
+          }
+        });
+      } else {
+        tile.setAttribute('data-playing', 'true');      // very old browsers
+      }
+    }
+
+    tiles.forEach(function (tile) {
+      var v = video(tile);
+      if (!v) return;
+      v.setAttribute('playsinline', '');
+
+      if (canHover) {
+        tile.addEventListener('mouseenter', function () {
+          if (tile.hasAttribute('data-holding')) return;   // a click owns it
+          start(tile, false);
+        });
+        tile.addEventListener('mouseleave', function () {
+          if (tile.hasAttribute('data-holding')) return;
+          stop(tile);
+        });
+        // Keyboard users get the same preview when they tab onto a tile.
+        tile.addEventListener('focus', function () {
+          if (!tile.hasAttribute('data-holding')) start(tile, false);
+        });
+        tile.addEventListener('blur', function () {
+          if (!tile.hasAttribute('data-holding')) stop(tile);
+        });
+      }
+
+      // Click toggles the real thing, with sound, and keeps it running.
+      tile.addEventListener('click', function () {
+        if (tile.hasAttribute('data-holding')) { stop(tile); return; }
+        start(tile, true);
+      });
+
+      // When a clicked video reaches its end, hand the tile back to its poster.
+      v.addEventListener('ended', function () { stop(tile); });
+    });
+
+    // Anything that scrolls fully out of view has no business still playing.
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting && en.target === current) stop(en.target);
+        });
+      }, { threshold: 0 });
+      tiles.forEach(function (t) { io.observe(t); });
+    }
   }
 
   /* ------------------------------------------------------------ Mobile drawer */
@@ -952,13 +1094,35 @@
         return card.getBoundingClientRect().width + gap;
       }
 
+      // The arrows are part of the design and stay on screen. They are never
+      // hidden and never disabled, because they always do something: when the
+      // cards overflow they scroll, and when they all fit (three reviews on a
+      // wide screen) they rotate the running order instead. Either way a click
+      // visibly moves the reviews, which is what the control promises.
+      function fits() {
+        return track.scrollWidth - track.clientWidth <= GRR_SLACK;
+      }
+
       function sync() {
-        var max = track.scrollWidth - track.clientWidth;
-        var fits = max <= GRR_SLACK;
-        [prev, next].forEach(function (b) { if (b) b.hidden = fits; });
-        if (fits) return;
-        if (prev) prev.disabled = track.scrollLeft < 4;
-        if (next) next.disabled = track.scrollLeft > max - 4;
+        [prev, next].forEach(function (b) {
+          if (!b) return;
+          b.hidden = false;
+          b.disabled = false;
+        });
+      }
+
+      function rotate(forward) {
+        var kids = track.children;
+        if (kids.length < 2) return;
+        if (forward) track.appendChild(kids[0]);
+        else track.insertBefore(kids[kids.length - 1], kids[0]);
+        // Re-run the clamp so a newly shown card gets its Read more control.
+        readMore();
+      }
+
+      function move(forward) {
+        if (fits()) rotate(forward);
+        else scrollBy(forward ? step() : -step());
       }
 
       function scrollBy(delta) {
@@ -985,8 +1149,8 @@
         });
       }
 
-      if (prev) prev.addEventListener('click', function () { scrollBy(-step()); });
-      if (next) next.addEventListener('click', function () { scrollBy(step()); });
+      if (prev) prev.addEventListener('click', function () { move(false); });
+      if (next) next.addEventListener('click', function () { move(true); });
       track.addEventListener('scroll', sync, { passive: true });
       window.addEventListener('resize', sync);
       sync();
@@ -1161,6 +1325,7 @@
     initDrawer();
     initBack();
     initCertViewer();
+    initTestimonials();
     initHeroSlides();
     initAccordions();
     initFilters();

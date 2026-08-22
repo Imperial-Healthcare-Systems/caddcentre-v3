@@ -340,6 +340,29 @@ _PIXEL = ("data:image/gif;base64,"
           "R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7")
 
 
+def path_media(key, depth=0, prefix="path"):
+    """Photograph for a career path card, falling back to the line drawing for
+    any path we do not have artwork for yet."""
+    up = "../" * depth
+    have = [w for w in (480, 960, 1600)
+            if _os.path.exists(_os.path.join(
+                _os.path.dirname(_os.path.abspath(__file__)),
+                "assets/img", f"{prefix}-{key}-{w}.webp"))]
+    if not have:
+        return figure(key)
+    sizes = "(max-width: 767px) 100vw, 33vw"
+
+    def ss(ext):
+        return ", ".join(f"{up}assets/img/{prefix}-{key}-{w}.{ext} {w}w" for w in have)
+
+    return (f'<div class="card__media card__media--photo"><picture>'
+            f'<source type="image/avif" srcset="{ss("avif")}" sizes="{sizes}">'
+            f'<source type="image/webp" srcset="{ss("webp")}" sizes="{sizes}">'
+            f'<img src="{up}assets/img/{prefix}-{key}-{have[-1]}.webp" alt="" '
+            f'width="1600" height="1200" loading="lazy" decoding="async">'
+            f'</picture></div>')
+
+
 def hero_picture(depth=0):
     """Art-directed, cross-fading hero.
 
@@ -407,6 +430,59 @@ def hero_picture(depth=0):
                    f'<picture>{sources}{img}</picture></div>')
 
     return slides
+
+
+# ============================================================================
+# TESTIMONIAL VIDEO TILES
+# Portrait (9:16) tiles that play silently on scroll and open with sound when
+# tapped. Only entries with an actual video file are rendered.
+# ============================================================================
+def published_testimonials():
+    try:
+        from build_data import TESTIMONIALS
+    except ImportError:
+        return []
+    return [t for t in TESTIMONIALS if t.get("video")]
+
+
+def testimonial_tiles(items, depth=0):
+    """The tiles themselves. Shared by the home band and the full page so the
+    two can never drift apart."""
+    up = "../" * depth
+    out = ""
+    for t in items:
+        poster = (f'{up}assets/img/testimonials/{t["poster"]}'
+                  if t.get("poster") else "")
+        name = t.get("name") or "A CADD Centre learner"
+        line = " &middot; ".join(x for x in (t.get("course"), t.get("outcome")) if x)
+        # preload="none" and no autoplay attribute: nothing is fetched until
+        # initTestimonials decides this tile is worth playing.
+        out += (
+            f'<figure class="tcard">'
+            f'<button class="tcard__media" type="button" data-testi'
+            f' data-src="{up}assets/video/{t.get("preview") or t["video"]}"'
+            f' data-full="{up}assets/video/{t["video"]}"'
+            f' data-name="{name}"'
+            f' aria-label="Play the video testimonial from {name}">'
+            # the poster is its own layer so the video can cross-fade over it
+            + (f'<img class="tcard__poster" src="{poster}" alt="" '
+               f'loading="lazy" decoding="async">' if poster else '')
+            + f'<video class="tcard__vid" muted loop playsinline preload="none"'
+            f' width="{t.get("w", 1080)}" height="{t.get("h", 1920)}"'
+            f' aria-hidden="true"></video>'
+            f'<span class="tcard__play" aria-hidden="true">'
+            f'<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>'
+            f'</span>'
+            f'<span class="tcard__sound" aria-hidden="true">Click for sound</span>'
+            f'</button>'
+            f'<figcaption class="tcard__cap">'
+            + (f'<p class="tcard__quote">&ldquo;{t["quote"]}&rdquo;</p>' if t.get("quote") else "")
+            + f'<p class="tcard__name">{name}</p>'
+            + (f'<p class="tcard__line">{line}</p>' if line else "")
+            + (f'<a class="tcard__src" href="{t["source"]}" rel="noopener">Watch on Instagram</a>'
+               if t.get("source") else "")
+            + f'</figcaption></figure>')
+    return out.replace("chr34", '"')
 
 
 # ============================================================================

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """Page bodies. Copy is taken from Document 2 — Website Content & Copy Master."""
 
-from build_parts import figure, hero_bg, wire, solid, photo, photo_card, icon, hero_picture, card_art
-from build_shell import L, PHONE, PHONE_D, EMAIL, ADDRESS
+from build_parts import figure, hero_bg, wire, solid, photo, photo_card, icon, hero_picture, card_art, path_media
+from build_shell import L, PHONE, PHONE_D, EMAIL, ADDRESS, DEPARTMENTS
+from build_data import PROGRAMS as ALL_PROGRAMS
 from build_reviews import reviews_section
 
 PATH_CARDS = [
@@ -37,7 +38,7 @@ def _path_grid(mode, depth, limit=8):
     out = ""
     for i, (kind, route, name, line, roles) in enumerate(PATH_CARDS[:limit]):
         out += f"""<a class="card rv" data-delay="{(i%4)*60}" {L(route, mode, depth)}>
-  {figure(kind)}
+  {path_media(kind, depth)}
   <div class="card__body">
     <h3 class="t-h3">{name}</h3>
     <p class="t-small t-muted">{line}</p>
@@ -50,6 +51,38 @@ def _path_grid(mode, depth, limit=8):
 # ============================================================================
 # HOME
 # ============================================================================
+def testimonial_band(mode, depth=0):
+    """Learner video testimonials, high on the home page.
+
+    Sits directly under the accreditation strip, before the visitor has been
+    asked to choose anything: proof works hardest before a decision, not after
+    it. Shows the first four and sends the rest to the full page.
+
+    Renders nothing until real footage is supplied, so a build on a machine
+    without the video files cannot publish an empty section.
+    """
+    from build_parts import published_testimonials, testimonial_tiles
+    items = published_testimonials()
+    if not items:
+        return ""
+    more = ""
+    if len(items) > 3:
+        more = (f'<a class="btn btn--secondary mt-6" {L("testimonials", mode, depth)}>'
+                f'See all {len(items)} learner stories</a>')
+    return f"""
+<section class="section testi" aria-labelledby="testi-h">
+  <div class="wrap">
+    <p class="label label--accent">What learners say</p>
+    <h2 class="t-display mt-1 mb-2" id="testi-h">Hear it from them.</h2>
+    <p class="t-lead measure mb-6">Not a marketing line and not a written quote we could have made up
+      &mdash; the learners themselves, on camera, saying what the course did for them.</p>
+    <div class="testi__grid">{testimonial_tiles(items[:3], depth)}</div>
+    {more}
+  </div>
+</section>
+"""
+
+
 def accreditation_band(mode, depth=0):
     """Autodesk / PMI authorisation band for the home page.
 
@@ -60,7 +93,7 @@ def accreditation_band(mode, depth=0):
     build; supply none and the whole band disappears.
     """
     try:
-        from build_data import ACCREDITATIONS
+        from build_data import PROGRAMS as ALL_PROGRAMS, ACCREDITATIONS
     except ImportError:
         return ""
     shown = [a for a in ACCREDITATIONS if a.get("logo") or a.get("cert")]
@@ -280,6 +313,8 @@ def page_home(mode, depth=0):
 
 {accreditation_band(mode, depth)}
 
+{testimonial_band(mode, depth)}
+
 <!-- Audience selector -->
 <section class="section audience">
   <div class="audience__bg" aria-hidden="true">{photo("audience-bg", depth, "100vw")}</div>
@@ -327,10 +362,10 @@ def page_home(mode, depth=0):
     <div class="marker"><span class="label label--accent">Programmes</span></div>
     <div class="flex jcb aic wrapf gap-3 mb-2">
       <h2 class="t-display">Industry-ready programmes.</h2>
-      <a class="alink" {L("programs", mode, depth)}>View all 32 courses
+      <a class="alink" {L("programs", mode, depth)}>View all {len(ALL_PROGRAMS)} courses
         <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
     </div>
-    <p class="t-lead measure mb-6">Eight departments, each opening into a module-by-module curriculum. Start from where you want to end up.</p>
+    <p class="t-lead measure mb-6">{len([d for d in DEPARTMENTS if d["courses"]])} departments, each opening into a module-by-module curriculum. Start from where you want to end up.</p>
     <div class="deptrow">
       {dept_cards}
     </div>
@@ -477,15 +512,15 @@ def page_home(mode, depth=0):
         <svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M1 7h12M8 2l5 5-5 5" stroke="currentColor" stroke-width="1.6"/></svg></a>
     </div>
     <div class="grid g-3">
-      <a class="card rv" {L("article:autocad-basic-drawing-guide", mode, depth)}>{figure("civil")}
+      <a class="card rv" {L("article:autocad-basic-drawing-guide", mode, depth)}>{path_media("autocad-basics", depth, "news")}
         <div class="card__body"><p class="label label--accent">AutoCAD</p>
         <h3 class="t-h3">AutoCAD Basic Drawing: A Complete Beginner's Guide</h3>
         <p class="t-small t-muted">Setup, the commands that matter, and the habits that make later work easier.</p></div></a>
-      <a class="card rv" data-delay="60" {L("article:autocad-2d-mechanical-drawing", mode, depth)}>{figure("mech")}
+      <a class="card rv" data-delay="60" {L("article:autocad-2d-mechanical-drawing", mode, depth)}>{path_media("autocad-2d", depth, "news")}
         <div class="card__body"><p class="label label--accent">AutoCAD</p>
         <h3 class="t-h3">Master AutoCAD 2D Mechanical Drawing</h3>
         <p class="t-small t-muted">Projection, sections, tolerancing and the conventions a shop floor expects.</p></div></a>
-      <a class="card rv" data-delay="120" {L("first-job-pakka", mode, depth)}>{figure("ai")}
+      <a class="card rv" data-delay="120" {L("first-job-pakka", mode, depth)}>{path_media("struct", depth, "path")}
         <div class="card__body"><p class="label label--accent">Placement</p>
         <h3 class="t-h3">First Job Pakka, in 80 hours</h3>
         <p class="t-small t-muted">Core competence, hands-on practice, and the programming component most CAD training leaves out.</p></div></a>

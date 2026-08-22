@@ -721,3 +721,78 @@ ACCREDITATIONS = [
      "logo": "", "logo_w": 0, "logo_h": 0,
      "cert": "", "cert_w": 0, "cert_h": 0},
 ]
+
+
+# ---------------------------------------------------------------------------
+# TESTIMONIALS — learner video testimonials.
+#
+# The videos are served from this site rather than embedded from Instagram.
+# Instagram embeds are blocked by our own Content-Security-Policy, and lifting
+# that would let Meta run scripts and set cookies on the domain; worse for the
+# purpose, tapping an Instagram embed usually opens Instagram, which sends a
+# visitor away exactly when they were deciding. Hosting the file keeps them
+# here and lets the tile play silently on scroll, which is what stops the
+# section being skipped.
+#
+# Each entry:
+#   key       internal id, also the asset filename stem
+#   name      the learner, as they agreed to be credited
+#   course    what they studied here
+#   outcome   where it took them — role and employer if they consent to it
+#   quote     one line in their own words; shown under the tile and readable
+#             with no JavaScript, and it is what search engines index
+#   video     file under assets/video/, or "" until supplied
+#   poster    still frame under assets/img/testimonials/, or ""
+#   w, h      intrinsic pixel size of the video (reels are 1080x1920)
+#   source    the original Instagram post, linked as provenance
+#
+# An entry with no video file is skipped, so nothing publishes until the real
+# footage is in place. Send the ORIGINAL exports rather than downloads pulled
+# back off Instagram — Instagram re-compresses heavily on upload.
+#
+# Written permission to publish is required for every name shown, on the same
+# basis as the student work page and the employer logo band.
+# ---------------------------------------------------------------------------
+TESTIMONIALS = [
+    # t1 is encoded and ready at assets/video/t1.mp4 but is NOT linked here.
+    # That segment carries a "PLACEMENT GUARANTEED" stamp burned into the
+    # footage, plus lucky-draw offer graphics. Every other page on this site
+    # states plainly that we cannot guarantee anyone a job — publishing this
+    # would contradict our own words and is exactly the kind of unsubstantiated
+    # claim the partner-logo note warns about. Supply a version without the
+    # overlay, or confirm the claim can be substantiated, and set "video":
+    # "t1.mp4" to publish it.
+    {"key": "t1", "name": "", "course": "", "outcome": "", "quote": "",
+     "video": "", "poster": "", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DWk5g6IjdGA/"},
+    {"key": "t2", "name": "", "course": "", "outcome": "", "quote": "",
+     "video": "t2.mp4", "preview": "t2-preview.mp4", "poster": "t2.webp", "w": 1080, "h": 1920,
+     "source": ""},
+    {"key": "t3", "name": "", "course": "", "outcome": "", "quote": "",
+     "video": "t3.mp4", "preview": "t3-preview.mp4", "poster": "t3.webp", "w": 1080, "h": 1920,
+     "source": ""},
+    {"key": "t4", "name": "", "course": "", "outcome": "", "quote": "",
+     "video": "t4.mp4", "preview": "t4-preview.mp4", "poster": "t4.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DZuroSFJitS/"},
+    {"key": "t5", "name": "Dherya Kalra", "course": "Executive Diploma in Interior Design", "outcome": "", "quote": "",
+     "video": "t5.mp4", "preview": "t5-preview.mp4", "poster": "t5.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DXMVBjxCAbb/"},
+    {"key": "t6", "name": "Parul", "course": "", "outcome": "", "quote": "",
+     "video": "t6.mp4", "preview": "t6-preview.mp4", "poster": "t6.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/Db3IBdxp4Ut/"},
+    {"key": "t7", "name": "Rohit", "course": "", "outcome": "", "quote": "",
+     "video": "t7.mp4", "preview": "t7-preview.mp4", "poster": "t7.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DZz5zw_NxuG/"},
+    {"key": "t8", "name": "Chandrashekhar Singh", "course": "AutoCAD &amp; SolidWorks", "outcome": "", "quote": "",
+     "video": "t8.mp4", "preview": "t8-preview.mp4", "poster": "t8.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DZXaGYVpsIY/"},
+
+    # t9 is the full reel of the same learner as t1 — the compilation segment
+    # was a cut of this. It is encoded and ready at assets/video/t9.mp4 but is
+    # held for the same reason: the "PLACEMENT GUARANTEED" stamp is burned into
+    # this version too, at about 14 seconds. Supply a cut without it, or
+    # confirm the claim can be substantiated, and set "video": "t9.mp4".
+    {"key": "t9", "name": "", "course": "", "outcome": "", "quote": "",
+     "video": "", "preview": "", "poster": "t9.webp", "w": 1080, "h": 1920,
+     "source": "https://www.instagram.com/reel/DWk5g6IjdGA/"},
+]

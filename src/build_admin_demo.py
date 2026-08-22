@@ -301,7 +301,7 @@ three quite different levels of responsibility...</textarea></div>
 
   /* ---- videos ---- */
   var VIDEOS = [
-    {i:1, t:'Hear from our learners', u:'https://www.youtube.com/watch?v=FbJY_AvsFIk', k:'YouTube'},
+    {i:1, t:'Inside CADD Centre Gurugram, Sector 14', u:'https://www.youtube.com/watch?v=NQdqWVcbkMg', k:'YouTube'},
     {i:2, t:'Inside the 3D printing lab', u:'https://cdn.example.com/media/lab-tour.mp4', k:'Direct MP4'}
   ];
   function vkind(u) {

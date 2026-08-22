@@ -20,8 +20,8 @@ from build_pages import page_home, page_career_paths
 from build_pages2 import (page_programs, page_student_work, page_finder,
                           page_corporate, page_about, page_contact)
 from build_pages3 import (page_first_job_pakka, page_careers, page_life,
-                          page_news, page_mentor, render_article, render_legal,
-                          ARTICLES)
+                          page_news, page_mentor, page_testimonials,
+                          render_article, render_legal, ARTICLES)
 from build_render import render_program, render_path
 from build_admin_demo import page_admin_demo
 from build_data import PATHS, PROGRAMS, EXTRA_REDIRECTS
@@ -92,6 +92,15 @@ PAGES = [
      "Book a free centre visit or career counselling in Sector 14, Gurugram. Open 7 days, 9:30 am to 7:00 pm. Call, WhatsApp or walk in.",
      "contact", page_contact),
 ]
+
+# The learner stories page is only produced once there is footage to put on
+# it — an empty page would be worse than no page.
+from build_data import TESTIMONIALS as _TESTI
+if any(t.get("video") for t in _TESTI):
+    PAGES.append(("testimonials", "testimonials/index.html", 1,
+                  "Learner Stories — Video Testimonials | CADD Centre Gurugram",
+                  "Hear from learners who trained at CADD Centre Gurugram, Sector 14 — in their own words, on camera.",
+                  "", page_testimonials))
 
 for k, slug, name, outcome, *_ in PATHS:
     plain = re.sub(r"&[a-z]+;", "and", name)
